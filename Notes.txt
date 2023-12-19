@@ -1,0 +1,129 @@
+Express js is mainly used for routing
+
+www.google.com -> Base URL
+www.google.com/search -> /search is the route
+
+-->Middleware;
+
+If we want to run some code before running the actual route, then we can use Middleware
+Syntax :-
+app.use((req, resp, next)={next()})
+Here next() calling is imp because it is used to call the PerformanceResourceTiming, if we dont use next(), then the route will not be called
+
+-->Dynamic Routing
+
+To make any route dynamic we need to use :"any variable" and to access that variable we need to take is from the req.params.variableName
+
+-->Template Engine
+
+EJS - EJS is html with superpower, it is used to render html inside server (e.g., pug, ejs, jade, handlebars)
+EJS is very similar to HTML 
+PUG and jade is very similar to python
+
+Steps
+1) install ejs - npm i ejs
+
+2) configure ejs - app.set("view engine","ejs")
+
+3) Make one folder with the name - views
+
+4) make one file with .ejs extension
+
+5) As till now we were using send() in the get funct just replace that send to render and only the filename inside the arg of render() funct. 
+
+Note: TO send the data from the server file to the view(HTML), then we can send it as :- app.send("index", {name: "Shanawaz"})
+To access the name in the html page :- <%= name %>
+
+--> Express Static files setup
+
+We have to create a folder 
+To setup static files we have to use -> app.use(express.static('./public))
+
+--> Express Generator
+
+It is used to make the express project(Folder), which reduces the process to do it manually
+
+Steps 
+1) Need to install express-Generator globally in the system by using the command :- npm i express-generator -g
+2) Create new app by using the command :- express appName --view=ejs
+
+
+--------------> MongoDB<-------------------
+
+There are mainly 2 types of databases
+1) Relational db - In Which 2 table have the relation using PK and FK eg., MySQL
+2) Non-Relational bd - In which 2 table have no relation e.g., MongoDB
+
+Terminologies
+
+	-Code Side- 				-DB Side-
+
+	DB setup				DB Formation
+	Model					Collection
+	Schema					Documents
+
+
+-->MongDb Formation	
+
+1) Install Mongoose - npm i mongoose
+2) Require and setup connection - mongoose.connect("mongodb://127.0.0.1:27017/dbName") :- here 27017 is the mongoDB port no.
+3) Make Schema - const schemaName = mangoose.Schema({
+	userName: String,
+	name: String,
+	age: Number
+})
+4) create Model and Export - module.exports = mongoose.model("user"(Collection name), schemaName)
+5) Import exported model from the step 4
+
+--------> Session and Cookies <-----------
+
+Session Storage is used to store the data at the SERVER side
+
+Cookies is used to store the data at the CLIENT Side
+
+Q) How to create Session
+
+Steps
+
+1) Install express-session : - npm i express-session
+2) use inside app.js as app.use() e.g.,
+	app.use(
+	session({
+		resave: false, //If the user saves the same data in the session, then it will not resave the data, to avoid load on the server
+		saveUninitialized: false, //It will not save the data which is not initialised
+		secret: "abc", //TO encrypt the data in the given format
+	})
+	);
+3) To use the session
+	res.session.variableName = "abc"
+4) To delete the session
+	res.session.destroy()
+
+Q) How to create cookie
+
+Steps
+
+1) It gets already installed when we make the app using - express appName --view=ejs\
+2) TO set the cookies :- 
+	res.cookie("user", "abc")
+3) To use the data	
+	req.cookies.user
+4) To clear the data
+	res.clearCookie("user")
+
+
+------------> Flash Messaging <----------
+
+It is basically used to give pop-ups or alerts
+
+Steps
+1) Install connect-Flash (npm i connect-flash)
+2) Setup express-session (As without express-session we cannot use connect- flash)
+3) use connect-flash in use method, as it gets executed before any route
+4) And use the connect-flash in other route
+ 
+
+
+
+
+
