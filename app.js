@@ -3,10 +3,12 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const session = require("express-session");
+const expresssession = require("express-session");
+const flash = require("connect-flash");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const passport = require("passport");
 
 var app = express();
 
@@ -14,12 +16,18 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(
-  session({
+  expresssession({
     resave: false, //If the user saves the same data in the session, then it will not resave the data, to avoid load on the server
     saveUninitialized: false, //It will not save the data which is not initialised
     secret: "abc", //TO encrypt the data in the given format
   })
-);
+); //This is used to
+app.use(passport.initialize()); //To initialize passport to perform Authentication and authorization
+app.use(passport.session()); //To turn on the session module so that the session save the data
+passport.serializeUser(usersRouter.serializeUser()); //this both lines are used to perform encryption and decryption of the data
+passport.deserializeUser(usersRouter.deserializeUser());
+
+app.use(flash());
 
 app.use(logger("dev"));
 app.use(express.json());

@@ -7,8 +7,16 @@ mongoose.connect(
 
 const userSchema = mongoose.Schema({
   userName: String,
-  name: String,
-  age: Number,
+  nickName: String,
+  description: String,
+  categories: {
+    type: Array,
+    default: [],
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("userCollection", userSchema);

@@ -114,12 +114,13 @@ Steps
 
 ------------> Flash Messaging <----------
 
-It is basically used to give pop-ups or alerts
+It is basically used to send the data from one route to another route(As if we want to send the data from one route to another we were used to create a global variable and use it in all the route, but this not a good practice as it pollute the global area), mainly used for giving pop-ups or alerts as the error comes in one route but we need to show the error msg in some other route, eg., Invalid Email and Password
+Note:- As internally flash message is working on the session Storage
 
 Steps
 1) Install connect-Flash (npm i connect-flash)
-2) Setup express-session (As without express-session we cannot use connect- flash)
-3) use connect-flash in use method, as it gets executed before any route
+2) Setup express-session (As without express-session we cannot use connect-flash)
+3) use connect-flash in use method in app.js, as it gets executed before any route
 4) And use the connect-flash in other route
  
 
